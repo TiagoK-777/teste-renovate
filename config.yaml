@@ -1,0 +1,7 @@
+# config.yaml
+
+wppconnect:
+  version: "v1.0.0"
+
+frigate-notify:
+  version: "v2.0.0"

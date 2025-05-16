@@ -1,0 +1,24 @@
+{
+  "extends": ["config:base"],
+  "regexManagers": [
+    {
+      "fileMatch": ["^config\\.yaml$"],
+      "matchStrings": [
+        "version:\\s+\"(?<currentValue>v?)(?<version>.*?)\""
+      ],
+      "depNameTemplate": "wppconnect-team/wppconnect-server",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "wppconnect-team/wppconnect-server",
+      "currentValueTemplate": "{{version}}"
+    },
+    {
+      "fileMatch": ["^config\\.yaml$"],
+      "matchStrings": [
+        "version:\\s+\"(?<currentValue>v.*?)\""
+      ],
+      "depNameTemplate": "0x2142/frigate-notify",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "0x2142/frigate-notify"
+    }
+  ]
+}
