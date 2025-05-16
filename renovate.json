@@ -1,9 +1,16 @@
 {
-  "extends": ["config:base"],
-  "repositories": ["TiagoK-777/teste-renovate"],
-  "regexManagers": [
+  "extends": [
+    "config:recommended"
+  ],
+  "repositories": [
+    "TiagoK-777/teste-renovate"
+  ],
+  "customManagers": [
     {
-      "fileMatch": ["^config\\.yaml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^config\\.yaml$/"
+      ],
       "matchStrings": [
         "version:\\s+\"(?<currentValue>v?)(?<version>.*?)\""
       ],
@@ -13,7 +20,10 @@
       "currentValueTemplate": "{{version}}"
     },
     {
-      "fileMatch": ["^config\\.yaml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^config\\.yaml$/"
+      ],
       "matchStrings": [
         "version:\\s+\"(?<currentValue>v.*?)\""
       ],
