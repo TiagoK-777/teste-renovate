@@ -18,29 +18,6 @@
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "wppconnect-team/wppconnect-server",
       "currentValueTemplate": "{{version}}"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^config\\.yaml$/"
-      ],
-      "matchStrings": [
-        "version:\\s+\"(?<currentValue>v.*?)\""
-      ],
-      "depNameTemplate": "0x2142/frigate-notify",
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "0x2142/frigate-notify"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^config\\.yaml$/"
-      ],
-      "matchStrings": [
-        "redis:\\s*\"?(?<currentValue>.*?)\"?"
-      ],
-      "datasourceTemplate": "docker",
-      "packageNameTemplate": "redis"
     }
   ]
 }
