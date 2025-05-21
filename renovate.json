@@ -12,12 +12,10 @@
         "/^config\\.yaml$/"
       ],
       "matchStrings": [
-        "version:\\s+\"(?<currentValue>v?)(?<version>.*?)\""
+        "redis:\\s*\"?(?<currentValue>.*?)\"?"
       ],
-      "depNameTemplate": "wppconnect-team/wppconnect-server",
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "wppconnect-team/wppconnect-server",
-      "currentValueTemplate": "{{version}}"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "redis"
     }
   ]
 }
