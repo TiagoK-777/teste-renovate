@@ -1,7 +1,10 @@
 # config.yaml
 
 wppconnect:
-  version: "vv2.8.6"
+  version: "v1.8.6"
 
 frigate-notify:
-  version: "v2.8.6"
+  version: "v1.8.6"
+
+Redis:
+  version: "7.0.1-alpine3.21"
