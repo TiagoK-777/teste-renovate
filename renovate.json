@@ -9,10 +9,10 @@
         "/^config\\.yaml$/"
       ],
       "matchStrings": [
-        "version:\\s*\"?(?<currentValue>[\\d.]+)-.*\"?\\s*"
+        "version:\\s*\"?(?<currentValue>.*?)\"?\\s*"
       ],
-      "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "redis/redis"
+      "datasourceTemplate": "docker",
+      "packageNameTemplate": "selenium/standalone-chrome"
     }
   ]
 }
