@@ -9,7 +9,7 @@
         "/^config\\.yaml$/"
       ],
       "matchStrings": [
-        "redis:\\n(?:\\s*[^\\n]+\\n)*\\s*version:\\s*\"?(?<currentValue>.*?)\"?"
+        "redis:(\\s|\\n|\\r)+.*?version:\\s*\"?(?<currentValue>.*?)\"?"
       ],
       "datasourceTemplate": "docker",
       "packageNameTemplate": "redis"
