@@ -9,7 +9,7 @@
         "/^config\\.yaml$/"
       ],
       "matchStrings": [
-        "version:\\s*\"?(?<currentValue>.*?)\"?\\s*"
+        "version:\\s*\"(?<currentValue>[\\d.]+)\"\\s*"
       ],
       "datasourceTemplate": "docker",
       "packageNameTemplate": "selenium/standalone-chrome"
