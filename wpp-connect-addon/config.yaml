@@ -1,0 +1,39 @@
+name: WPPConnect Server
+version: "v2.8.5"
+slug: wppconnect
+description: "API para controle do WhatsApp via HTTP"
+url: "https://github.com/wppconnect-team/wppconnect-server"
+build_from:
+  amd64: "wppconnect/server-cli:main"
+webui: "http://[HOST]:[PORT:21465]/api-docs/"
+watchdog: "http://[HOST]:[PORT:21465]/"
+arch:
+  - amd64
+init: false
+startup: application
+map:
+  - data:rw
+ports:
+  21465/tcp: 21465
+options:
+  SERVER_PORT: 21465
+  SECRET_KEY: "minha-chave-secreta"
+  WEBHOOK_URL: "http://homeassistant:8123/api/webhook/wppconnect"
+  FRONTEND: false
+  START_ALL_SESSION: true
+  NO_WEBHOOK_READMESSAGE: true
+  WEBHOOK_READMESSAGE: false
+  NO_WEBHOOK_LISTENACKS: true
+  NO_WEBHOOK_ONPRESENCECHANGED: true
+  NO_WEBHOOK_ONPARTICIPANTSCHANGED: true
+schema:
+  SERVER_PORT: "int?"
+  SECRET_KEY: "str?"
+  WEBHOOK_URL: "str?"
+  FRONTEND: "bool?"
+  START_ALL_SESSION: "bool?"
+  NO_WEBHOOK_READMESSAGE: "bool?"
+  WEBHOOK_READMESSAGE: "bool?"
+  NO_WEBHOOK_LISTENACKS: "bool?"
+  NO_WEBHOOK_ONPRESENCECHANGED: "bool?"
+  NO_WEBHOOK_ONPARTICIPANTSCHANGED: "bool?"

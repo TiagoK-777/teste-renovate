@@ -1,19 +1,23 @@
 {
-  "extends": [
-    "config:recommended"
-  ],
-  "customManagers": [
+  "extends": ["config:base"],
+  "regexManagers": [
     {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^config\\.yaml$/"
-      ],
+      "fileMatch": ["^wpp-connect-addon/config\\.yaml$"],
       "matchStrings": [
         "version:\\s*\"(?<currentValue>[\\w.]+)\"\\s*"
       ],
       "depNameTemplate": "wppconnect-team/wppconnect-server",
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "wppconnect-team/wppconnect-server"
+    },
+    {
+      "fileMatch": ["^evolution-api-addon/config\\.yaml$"],
+      "matchStrings": [
+        "version:\\s*\"(?<currentValue>[\\w.]+)\"\\s*"
+      ],
+      "depNameTemplate": "EvolutionAPI/evolution-api",
+      "datasourceTemplate": "github-releases",
+      "packageNameTemplate": "EvolutionAPI/evolution-api"
     }
   ]
 }

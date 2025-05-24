@@ -1,0 +1,87 @@
+name: Update CHANGELOG on version bump
+on:
+  pull_request_target:
+    paths:
+      # Disparador mais genérico se muitos config.yaml mudam
+      - '**/config.yaml'
+    types:
+      - opened
+      - synchronize
+permissions:
+  contents: write
+jobs:
+  update-changelog:
+    # Use uma matriz para listar os addons e seus caminhos
+    strategy:
+      matrix:
+        addon:
+          - name: wpp-connect-addon
+            config_path: wpp-connect-addon/config.yaml
+            changelog_path: wpp-connect-addon/CHANGELOG.md
+            release_repo: wppconnect-team/wppconnect-server
+          - name: evolution-api-addon
+            config_path: evolution-api-addon/config.yaml
+            changelog_path: evolution-api-addon/CHANGELOG.md
+            release_repo: EvolutionAPI/evolution-api
+    if: github.actor == 'renovate[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the PR branch
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Extract new version from config.yaml for ${{ matrix.addon.name }}
+        id: extract
+        run: |
+          NEW_VERSION=$(grep 'version:' ${{ matrix.addon.config_path }} | sed -E 's/version:\s*"([\w.]+)"\s*//')
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+        # Adiciona condição para pular se o config.yaml específico não tiver mudado
+        if: contains(github.event.pull_request.changed_files, matrix.addon.config_path)
+
+
+      - name: Get release info from GitHub for ${{ matrix.addon.name }}
+        id: release
+        run: |
+          VERSION=${{ steps.extract.outputs.version }}
+          # Exemplo: ajustar a URL da API, você pode precisar de mais variáveis na matriz
+          RELEASE_INFO=$(curl -s https://api.github.com/repos/${{ matrix.addon.release_repo }}/releases/tags/v$VERSION)
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$RELEASE_INFO" | jq -r .body >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+        if: steps.extract.outputs.version != '' # Garante que só roda se a versão foi extraída
+
+      - name: Prepend to CHANGELOG.md for ${{ matrix.addon.name }}
+        run: |
+          VERSION=${{ steps.extract.outputs.version }}
+          DATE=$(date +%Y-%m-%d)
+          {
+            echo "## [${VERSION}] - ${DATE}"
+            # Ajuste o conteúdo do corpo conforme a sua API de release
+            # Se for um repositório diferente, o 'body' pode ser diferente.
+            echo "${{ steps.release.outputs.body }}"
+            echo
+            cat ${{ matrix.addon.changelog_path }}
+          } > temp.md && mv temp.md ${{ matrix.addon.changelog_path }}
+        if: steps.extract.outputs.version != '' # Garante que só roda se a versão foi extraída
+
+
+      - name: Commit and push changes for ${{ matrix.addon.name }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use o caminho da matriz aqui
+          file_pattern: ${{ matrix.addon.changelog_path }}
+          branch: ${{ github.event.pull_request.head.ref }}
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: |
+            docs(${
+              {
+                'wpp-connect-addon': 'wpp-connect',
+                'evolution-api-addon': 'evolution-api',
+              }[matrix.addon.name] or 'general'
+            }): update CHANGELOG for ${{ matrix.addon.name }} version ${{ steps.extract.outputs.version }}
+          push_options: --force
+        if: steps.extract.outputs.version != '' # Garante que só roda se a versão foi extraída
