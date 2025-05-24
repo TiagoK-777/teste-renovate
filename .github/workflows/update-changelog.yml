@@ -70,7 +70,7 @@ jobs:
           
           # Use CURL com -f para falhar se houver erro HTTP (ex: 404 Not Found)
           # Adicione o Authorization header se o release_repo for privado ou para evitar rate limits mais rápido.
-          RELEASE_INFO=$(curl -s -f -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ matrix.addon.release_repo }}/releases/tags/v$VERSION")
+          RELEASE_INFO=$(curl -s -f -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ matrix.addon.release_repo }}/releases/tags/$VERSION")
           
           if [ $? -ne 0 ]; then # Verifica o código de saída do curl
             echo "Error fetching release info for v$VERSION from ${{ matrix.addon.release_repo }}. HTTP errors or not found."
