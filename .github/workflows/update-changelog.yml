@@ -47,7 +47,7 @@ jobs:
           # Mude esta linha:
           # NEW_VERSION=$(grep 'version:' "${{ matrix.addon.config_path }}" | sed -E 's/version:\s*"([\w.]+)"\s*//')
           # Para esta: (captura o grupo 1)
-          NEW_VERSION=$(grep 'version:' "${{ matrix.addon.config_path }}" | sed -E 's/version:\s*"([^"]+)".*/\1/') # <-- CORREÇÃO AQUI
+          NEW_VERSION=$(grep 'version:' "${{ matrix.addon.config_path }}" | sed -E 's/version:\s*"([^"]+)".*/\1/')
           
           echo "Debug: Extracted version -> $NEW_VERSION"
           if [ -z "$NEW_VERSION" ]; then
