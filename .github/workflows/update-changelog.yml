@@ -35,7 +35,7 @@ jobs:
       - name: Extract new version from config.yaml for ${{ matrix.addon.name }}
         id: extract
         run: |
-          NEW_VERSION=$(grep 'version:' ${{ matrix.addon.config_path }} | sed -E 's/version:\s*"([\w.]+)"\s*//')
+          NEW_VERSION=$(grep 'version:' ${{ matrix.addon.config_path }} | sed -E 's/version:\s*"([\w.]+)"\s*')
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
         # Adiciona condição para pular se o config.yaml específico não tiver mudado
         if: contains(github.event.pull_request.changed_files, matrix.addon.config_path)
