@@ -1,5 +1,5 @@
 name: Evolution API
-version: "2.2.2"
+version: "2.2.3"
 slug: evolutionapi
 description: "API para controle do WhatsApp via HTTP"
 url: "https://github.com/EvolutionAPI/evolution-api"
