@@ -40,25 +40,22 @@ jobs:
       - name: Extract new version from config.yaml for ${{ matrix.addon.name }}
         id: extract
         run: |
-          # Verifica se o arquivo config.yaml existe antes de tentar extrair a versão
           if [ ! -f "${{ matrix.addon.config_path }}" ]; then
             echo "Error: config.yaml not found at ${{ matrix.addon.config_path }}"
-            exit 1 # Falha o passo se o arquivo não existir
+            exit 1
           fi
-          NEW_VERSION=$(grep 'version:' "${{ matrix.addon.config_path }}" | sed -E 's/version:\s*"([\w.]+)"\s*//')
+          # Mude esta linha:
+          # NEW_VERSION=$(grep 'version:' "${{ matrix.addon.config_path }}" | sed -E 's/version:\s*"([\w.]+)"\s*//')
+          # Para esta: (captura o grupo 1)
+          NEW_VERSION=$(grep 'version:' "${{ matrix.addon.config_path }}" | sed -E 's/version:\s*"([^"]+)".*/\1/') # <-- CORREÇÃO AQUI
+          
           echo "Debug: Extracted version -> $NEW_VERSION"
           if [ -z "$NEW_VERSION" ]; then
             echo "Warning: No version extracted from ${{ matrix.addon.config_path }}. This might be normal if the config wasn't updated."
-            echo "version=" >> $GITHUB_OUTPUT # Garante que a variável 'version' é definida (como vazia)
+            echo "version=" >> $GITHUB_OUTPUT
           else
             echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           fi
-        # Execute esta etapa apenas se o config.yaml da matriz for um dos arquivos alterados no PR
-        # ATENÇÃO: Dependendo de como o RenovateBot funciona ou se o PR altera múltiplos addons,
-        #             você pode querer remover esta condição ou ajustar a lógica.
-        #             Para depuração inicial, talvez seja melhor remover a condição ou
-        #             ter certeza de que o `config.yaml` do addon foi alterado.
-        # if: contains(github.event.pull_request.changed_files, matrix.addon.config_path)
 
 
       - name: Get release info from GitHub for ${{ matrix.addon.name }}
