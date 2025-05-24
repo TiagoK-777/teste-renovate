@@ -18,14 +18,14 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/^evolution-api-addon/config\\.yaml$/"
+        "/^frigate-notify-addon/config\\.yaml$/"
       ],
       "matchStrings": [
         "version:\\s*\"(?<currentValue>[\\w.]+)\"\\s*"
       ],
-      "depNameTemplate": "EvolutionAPI/evolution-api",
+      "depNameTemplate": "0x2142/frigate-notify",
       "datasourceTemplate": "github-releases",
-      "packageNameTemplate": "EvolutionAPI/evolution-api"
+      "packageNameTemplate": "0x2142/frigate-notify"
     }
   ]
 }

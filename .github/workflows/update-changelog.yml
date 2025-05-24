@@ -20,10 +20,10 @@ jobs:
             config_path: wpp-connect-addon/config.yaml
             changelog_path: wpp-connect-addon/CHANGELOG.md
             release_repo: wppconnect-team/wppconnect-server
-          - name: evolution-api-addon
-            config_path: evolution-api-addon/config.yaml
-            changelog_path: evolution-api-addon/CHANGELOG.md
-            release_repo: EvolutionAPI/evolution-api
+          - name: frigate-notify-addon
+            config_path: frigate-notify-addon/config.yaml
+            changelog_path: frigate-notify-addon/CHANGELOG.md
+            release_repo: 0x2142/frigate-notify
     if: github.actor == 'renovate[bot]'
     steps:
       - name: Check out the PR branch
@@ -150,7 +150,7 @@ jobs:
             docs(${
               {
                 'wpp-connect-addon': 'wpp-connect',
-                'evolution-api-addon': 'evolution-api'
+                'frigate-notify-addon': 'frigate-notify'
               }[matrix.addon.name] or 'general'
             }): update CHANGELOG for ${{ matrix.addon.name }} version ${{ steps.extract.outputs.version }}
           push_options: --force
