@@ -1,8 +1,13 @@
 {
-  "extends": ["config:base"],
-  "regexManagers": [
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
     {
-      "fileMatch": ["^wpp-connect-addon/config\\.yaml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^wpp-connect-addon/config\\.yaml$/"
+      ],
       "matchStrings": [
         "version:\\s*\"(?<currentValue>[\\w.]+)\"\\s*"
       ],
@@ -11,7 +16,10 @@
       "packageNameTemplate": "wppconnect-team/wppconnect-server"
     },
     {
-      "fileMatch": ["^evolution-api-addon/config\\.yaml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^evolution-api-addon/config\\.yaml$/"
+      ],
       "matchStrings": [
         "version:\\s*\"(?<currentValue>[\\w.]+)\"\\s*"
       ],
