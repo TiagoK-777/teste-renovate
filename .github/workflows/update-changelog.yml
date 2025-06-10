@@ -139,7 +139,7 @@ jobs:
 
 
       - name: Commit and push changes for ${{ matrix.addon.name }}
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           file_pattern: ${{ matrix.addon.changelog_path }}
